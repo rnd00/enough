@@ -2,7 +2,7 @@ import {createServer} from 'node:http';
 import {readFile} from 'node:fs/promises';
 import {resolve, extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-const root = fileURLToPath(new URL('../public',import.meta.url));
+const root = fileURLToPath(new URL('../docs',import.meta.url));
 createServer(async (req,res) => {
   try {
     const path = resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname === '/' ? '/index.html' : new URL(req.url, 'http://localhost').pathname));

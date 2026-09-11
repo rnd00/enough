@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync,readdirSync} from 'node:fs';
-import {t} from '../public/js/i18n.js';
+import {t} from '../docs/js/i18n.js';
 
 test('Japanese messages preserve interpolated values and English remains available',()=>{
   assert.equal(t('Clear all blocks','ja'),'すべてのブロックを削除');
@@ -11,8 +11,8 @@ test('Japanese messages preserve interpolated values and English remains availab
   assert.equal(t('My custom note','ja'),'My custom note');
   assert.equal(t('Clear all blocks','en'),'Clear all blocks');
 });
-test('published pages, modules and holiday data resolve within public/',()=>{
-  const root=new URL('../public/',import.meta.url);
+test('published pages, modules and holiday data resolve within docs/',()=>{
+  const root=new URL('../docs/',import.meta.url);
   for(const page of ['index.html','sources.html']){
     const source=readFileSync(new URL(page,root),'utf8');
     for(const [,path] of source.matchAll(/(?:src|href)="([^"]+)"/g)){
@@ -31,5 +31,5 @@ test('published pages, modules and holiday data resolve within public/',()=>{
     }
   }
   assert.equal(readFileSync(new URL('licenses/LICENSE',root),'utf8'),readFileSync(new URL('../LICENSE',import.meta.url),'utf8'));
-  assert.match(readFileSync(new URL('../.github/workflows/pages.yml',import.meta.url),'utf8'),/path: public/);
+  assert.ok(existsSync(new URL('.nojekyll',root)));
 });

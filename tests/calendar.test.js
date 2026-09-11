@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {calculate,monthDays,overlaps,distribute,planWithLunch,startOfWeek,holidayMap,plannedMessage} from '../public/js/calendar.js';
-import {fallback} from '../public/js/holidays.js';
+import {calculate,monthDays,overlaps,distribute,planWithLunch,startOfWeek,holidayMap,plannedMessage} from '../docs/js/calendar.js';
+import {fallback} from '../docs/js/holidays.js';
 const state={month:'2026-09',start:'2026-09-12',hours:82,completed:0,mode:'remaining',weekdays:[1,2,3,4,5],vacation:['2026-09-24','2026-09-25'],blocks:[]};
 test('planned status follows added hours instead of theoretical daily capacity',()=>{
   assert.equal(plannedMessage(60,61.5),'1.5h still to place.');
@@ -11,7 +11,7 @@ test('planned status follows added hours instead of theoretical daily capacity',
   assert.equal(plannedMessage(0,61.5),'61.5h still to place.');
 });
 test('SEA calendars cover every country and filter Malaysia state holidays',()=>{
-  const bundle=JSON.parse(readFileSync(new URL('../public/data/sea-holidays.json',import.meta.url),'utf8'));
+  const bundle=JSON.parse(readFileSync(new URL('../docs/data/sea-holidays.json',import.meta.url),'utf8'));
   for(const code of ['BN','KH','ID','LA','MY','MM','PH','SG','TH','TL','VN'])for(const year of ['2026','2027']){
     assert.ok(bundle[code][year].length>0,code+year);
     assert.ok(bundle[code][year].every(h=>h.date.startsWith(year)&&h.holidayTypes.includes('Public')));

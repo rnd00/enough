@@ -25,5 +25,5 @@ for code in CODES:
             for (day, name), regions in sorted(entries.items())
         ]
         assert output[code][str(year)], f'Missing calendar: {code} {year}'
-(Path(__file__).resolve().parent.parent / 'public/data/sea-holidays.json').write_text(json.dumps(output, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+(Path(__file__).resolve().parent.parent / 'docs/data/sea-holidays.json').write_text(json.dumps(output, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
 print('Generated 2026-2027 calendars for all 11 Southeast Asian countries.')
