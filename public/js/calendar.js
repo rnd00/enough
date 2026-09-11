@@ -34,7 +34,7 @@ export function planWithLunch(s, holidays, lunch) {
     const target=Math.min(Math.max(0,s.limit-used),Math.ceil(remaining/(c.days.length-i)*60)/60);
     if(target<=0&&used<=0)continue;
     let meal=null;
-    if(lunch.enabled && lunch.start>=(s.workStart??8) && lunch.start+lunch.duration<=(s.workEnd??24) && !blocks.some(b=>b.date===d&&b.type==='personal'&&b.label.toLowerCase().includes('lunch'))) {
+    if(lunch.enabled && lunch.start>=(s.workStart??8) && lunch.start+lunch.duration<=(s.workEnd??24) && !blocks.some(b=>b.date===d&&b.type==='personal'&&(b.label.toLowerCase().includes('lunch')||b.label==='昼休み'))) {
       meal={id:crypto.randomUUID(),date:d,start:lunch.start,end:lunch.start+lunch.duration,type:'personal',label:'Lunch'};
       if(overlaps(meal,blocks)){skipped.push(d);meal=null;}
     }

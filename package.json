@@ -1,1 +1,9 @@
-{"name":"enough","private":true,"type":"module","scripts":{"start":"node server.js","test":"node test.js"}}
+{
+  "name": "enough",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/server.js",
+    "test": "node tests/calendar.test.js && node tests/site.test.js"
+  }
+}

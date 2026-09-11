@@ -58,3 +58,10 @@
 .sources-page section { padding:24px 0; border-bottom:1px solid var(--line); }
 .sources-page p { margin-top:12px; }
 .sources-page a { color:var(--blue); }
+#language { width:auto; min-width:94px; margin:0; font-size:12px; }
+html[lang="ja"] { font-family:'Segoe UI','Yu Gothic UI','Meiryo',sans-serif; }
+html[lang="ja"] h1 { letter-spacing:0; line-height:1.5; }
+html[lang="ja"] .actions { flex-wrap:wrap; }
+html[lang="ja"] .section-heading { align-items:flex-start; }
+html[lang="ja"] .day small { font-size:10px; }
+@media(max-width:1100px) { header { gap:14px; } .planner>.section-heading { flex-wrap:wrap; } }

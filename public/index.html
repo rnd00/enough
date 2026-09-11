@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Enough — Make time for the finish line</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('enough-theme')==='light'?'light':'dark'}catch{}</script><link rel="stylesheet" href="style.css"></head>
+<html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Enough — Make time for the finish line</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('enough-theme')==='light'?'light':'dark'}catch{}</script><link rel="stylesheet" href="./css/style.css"></head>
 <body>
-<header><a class="brand" href="./"><span class="logo">e</span> Enough</a><span class="tagline">Do enough. Then clock out.</span><span id="save-status" class="save-status">Saved on this device</span><button id="theme-toggle" type="button" aria-label="Switch to light mode">Light mode</button></header>
+<header><a class="brand" href="./"><span class="logo">e</span> Enough</a><span class="tagline">Do enough. Then clock out.</span><span id="save-status" class="save-status">Saved on this device</span><button id="theme-toggle" type="button" aria-label="Switch to light mode">Light mode</button><select id="language" aria-label="Language"><option value="en">English</option><option value="ja">日本語</option></select></header>
 <main>
 <div class="intro"><div><h1>A little planning. Less overtime.</h1><p>Find your daily target. Protect your days off. Know when you can stop.</p></div><button id="example" class="secondary">Try the September example</button></div>
 <div class="workspace">
@@ -20,7 +20,7 @@
 </main>
 <dialog id="day-dialog"><form method="dialog"><div class="dialog-heading"><h2 id="day-title"></h2><button aria-label="Close">×</button></div><p id="day-detail" class="subtle"></p><label>Day type<select id="day-type"><option value="normal">Normal day</option><option value="vacation">Paid vacation</option><option value="holiday">Custom holiday</option></select></label><label id="custom-label">Holiday name<input id="holiday-name" maxlength="80" placeholder="Company holiday"></label><p class="hint">Existing work blocks on days off are kept, but do not count toward your target.</p><button class="primary" id="save-day" value="save">Save day</button></form></dialog>
 <dialog id="block-dialog"><form id="block-form"><div class="dialog-heading"><h2 id="block-title">Add time block</h2><button type="button" id="close-block" aria-label="Close">×</button></div><label>Title<input id="block-label" required maxlength="80" placeholder="Work, lunch, commute…"></label><div class="form-row"><label>Type<select id="block-type"><option value="work">Work</option><option value="personal">Personal / break</option></select></label><label>Date<input type="date" id="block-date" required></label></div><div class="form-row"><label>Start<input type="time" id="block-start" required></label><label>End (00:00 = midnight)<input type="time" id="block-end" required></label></div><label class="check"><input type="checkbox" id="block-repeat">Repeat on available workdays this week</label><p id="block-error" role="alert"></p><div class="actions"><button type="button" id="delete-block" class="danger">Delete block</button><button class="primary">Save block</button></div></form></dialog>
-<script type="module" src="app.js"></script></body></html>
+<script type="module" src="./js/app.js"></script></body></html>
 
 
 

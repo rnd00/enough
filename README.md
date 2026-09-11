@@ -37,6 +37,8 @@ Only work on available days counts toward your target. Lunch, personal blocks, e
 
 ## Preferences and saving
 
+Choose **English** or **日本語** in the header. The language preference is shared across the planner and sources page. Dates, labels, and messages follow your choice; saved block names and provider-supplied holiday names stay as entered.
+
 Dark mode is the default; the header toggle switches themes. Choose any day as the start of your week.
 
 Your plan and preferences stay in this browser. There is no account or cloud sync. Clearing browser data removes your saved plan.
@@ -45,11 +47,26 @@ Your plan and preferences stay in this browser. There is no account or cloud syn
 
 Japan and the other international calendars use online sources with offline fallbacks or cached data. Southeast Asia has bundled **2026–2027** calendars for all 11 countries, including state selection for Malaysia. The app shows a warning when data is unavailable.
 
-Source details, coverage limitations, and third-party licenses live on the app's [Sources & licenses page](sources.html).
+Source details, coverage limitations, and third-party licenses live on the app's [Sources & licenses page](public/sources.html).
+
+## Project layout
+
+```text
+public/             Website served locally and on GitHub Pages
+  js/               App, calculations, and translations
+  css/              Styles
+  data/             Bundled holiday calendars
+  licenses/         Published license notices
+scripts/            Local server and holiday-data generator
+tests/              Calculation, translation, and site-path checks
+.github/workflows/  GitHub Pages deployment
+```
+
+The English interface text is the default. Japanese translations live in `public/js/ja.js`.
 
 ## Development
 
-Run the calculation checks:
+Run the calculation, translation, and site checks:
 
 ```sh
 npm test
@@ -59,7 +76,7 @@ To regenerate the bundled Southeast Asian calendars:
 
 ```sh
 python -m pip install holidays==0.104
-python generate-sea.py
+python scripts/generate-sea.py
 ```
 
 Python is only needed to regenerate those data files, not to run the app.
@@ -75,10 +92,24 @@ One-time setup:
 3. Open **Actions → Deploy GitHub Pages → Run workflow**, or push another change to `main`.
 4. Wait for the deployment to finish. The workflow provides the published URL; for this repository it is normally `https://rnd00.github.io/enough/`.
 
+After that setup, deploy from GitHub CLI:
+
+```sh
+gh workflow run pages.yml --repo rnd00/enough --ref main
+```
+
+Check the deployment runs:
+
+```sh
+gh run list --repo rnd00/enough --workflow pages.yml --limit 5
+```
+
+This deploys the version already pushed to GitHub, not uncommitted or unpushed local changes.
+
 GitHub Pages requires a public repository on GitHub Free, or a supported paid plan for a private repository. See [GitHub's Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). Changing repository visibility is a separate choice.
 
-All asset paths are relative, so the site works under `/enough/`. Only the website, holiday data, license notices, and linked data-generation script are included in the deployment; the development server and tests are excluded. Plans saved on localhost do not transfer to the hosted site because browser storage is separate for each origin.
+All asset paths are relative, so the site works under `/enough/`. Only the website, holiday data, and license notices are included in the deployment; the development server and tests are excluded. Plans saved on localhost do not transfer to the hosted site because browser storage is separate for each origin.
 
 ## License
 
-Enough's application code is available under the [MIT License](LICENSE). Third-party holiday data retains its own attribution and terms; see [Sources & licenses](sources.html) and the [bundled holiday-data license](SEA-DATA-LICENSE.txt).
+Enough's application code is available under the [MIT License](LICENSE). Third-party holiday data retains its own attribution and terms; see [Sources & licenses](public/sources.html) and the [bundled holiday-data license](public/licenses/SEA-DATA-LICENSE.txt).
