@@ -66,7 +66,18 @@ Python is only needed to regenerate those data files, not to run the app.
 
 ## GitHub Pages
 
-Serve the repository root as a static site. No build step, backend, or API key is required. All asset paths are relative, so the app also works under a repository subpath.
+The included **Deploy GitHub Pages** workflow tests the app and publishes its static files whenever you push to `main`. It can also be started manually from the Actions tab. No backend, package installation, or API key is required.
+
+One-time setup:
+
+1. Push the repository, including `.github/workflows/pages.yml`, to GitHub.
+2. Open **Settings → Pages → Build and deployment** and select **GitHub Actions** as the source.
+3. Open **Actions → Deploy GitHub Pages → Run workflow**, or push another change to `main`.
+4. Wait for the deployment to finish. The workflow provides the published URL; for this repository it is normally `https://rnd00.github.io/enough/`.
+
+GitHub Pages requires a public repository on GitHub Free, or a supported paid plan for a private repository. See [GitHub's Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). Changing repository visibility is a separate choice.
+
+All asset paths are relative, so the site works under `/enough/`. Only the website, holiday data, license notices, and linked data-generation script are included in the deployment; the development server and tests are excluded. Plans saved on localhost do not transfer to the hosted site because browser storage is separate for each origin.
 
 ## License
 
