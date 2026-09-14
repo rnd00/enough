@@ -1,5 +1,14 @@
 export const key = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 export const date = s => new Date(s + 'T12:00:00');
+export function parseHours(value,min=0,max=744){
+  const text=String(value).trim(), clock=text.match(/^(\d+):([0-5]\d)$/);
+  const hours=clock?Number(clock[1])+Number(clock[2])/60:/^\d+(?:\.\d+)?$/.test(text)?Number(text):NaN;
+  return hours>=min&&hours<=max?hours:NaN;
+}
+export function formatHoursInput(hours){
+  const minutes=Math.round(hours*60);
+  return minutes%15===0?String(Number((minutes/60).toFixed(2))):`${Math.floor(minutes/60)}:${String(minutes%60).padStart(2,'0')}`;
+}
 export function startOfWeek(d,first=1){const v=date(d);v.setDate(v.getDate()-(v.getDay()-first+7)%7);return key(v);}
 export function holidayMap(rows,subdivision=''){
   const result={};

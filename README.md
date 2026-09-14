@@ -18,7 +18,7 @@ Open [localhost:4173](http://localhost:4173).
 
 ## Plan your month
 
-1. Enter **Hours left**, or select **Monthly total** and enter the hours already worked.
+1. Enter **Hours left**, or select **Monthly total** and enter the hours already worked. Duration fields accept decimal hours (`8.25`) or hours and minutes (`8:15`).
 2. Choose the month, first available date, working weekdays, and preferred daily limit.
 3. Set how many hours each paid vacation day counts toward your monthly requirement. Use `0` if your company only counts hours actually worked.
 4. Select your holiday calendar and, where available, your state or region. Click dates to add paid vacation or custom holidays.

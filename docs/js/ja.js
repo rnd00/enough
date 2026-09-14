@@ -15,6 +15,8 @@ export default {
   'Starts tomorrow by default. Include today if you still have time to work.':'初期設定は明日からです。今日も働ける場合は、今日を指定してください。',
   'Hours left':'残りの時間','Monthly total':'月の合計時間','Hours left to work':'残りの必要労働時間','Total hours required':'必要な合計労働時間','Hours already worked':'すでに働いた時間',
   'Paid vacation credit per day':'有給休暇1日あたりの算入時間','Use 0 if paid leave does not count toward your monthly hours.':'有給休暇を月の労働時間に算入しない場合は0にしてください。',
+  'Enter decimal hours or hours:minutes.':'小数の時間、または「時間:分」で入力してください。','e.g. 82 or 82:30':'例：82 または 82:30','e.g. 40 or 40:15':'例：40 または 40:15','e.g. 8 or 8:11':'例：8 または 8:11','e.g. 8 or 8:30':'例：8 または 8:30',
+  'Enter a duration from {0} to {1} as decimal hours or hours:minutes.':'{0}から{1}までの時間を、小数または「時間:分」で入力してください。',
   'Preferred daily limit (hours)':'1日の上限（時間）','Public holiday calendar':'祝日カレンダー',
   'Custom / no public holidays':'手動設定・祝日なし','State / region':'州・地域','National holidays only':'全国共通の祝日のみ',
   'Week starts on':'週の始まり','Your working week':'勤務する曜日','Select the days you normally work.':'普段働く曜日を選んでください。',

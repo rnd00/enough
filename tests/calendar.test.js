@@ -1,9 +1,18 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {calculate,monthDays,overlaps,distribute,planWithLunch,startOfWeek,holidayMap,plannedMessage} from '../docs/js/calendar.js';
+import {calculate,parseHours,formatHoursInput,monthDays,overlaps,distribute,planWithLunch,startOfWeek,holidayMap,plannedMessage} from '../docs/js/calendar.js';
 import {fallback} from '../docs/js/holidays.js';
 const state={month:'2026-09',start:'2026-09-12',hours:82,completed:0,mode:'remaining',weekdays:[1,2,3,4,5],vacation:['2026-09-24','2026-09-25'],blocks:[]};
+test('hour fields accept decimals and exact hour:minute values',()=>{
+  assert.equal(parseHours('10.5'),10.5);
+  assert.equal(parseHours('8:11'),8+11/60);
+  assert.equal(parseHours('8:60'),NaN);
+  assert.equal(parseHours('-1'),NaN);
+  assert.equal(parseHours('24:01',0,24),NaN);
+  assert.equal(formatHoursInput(8.25),'8.25');
+  assert.equal(formatHoursInput(8+11/60),'8:11');
+});
 test('planned status follows added hours instead of theoretical daily capacity',()=>{
   assert.equal(plannedMessage(60,61.5),'1.5h still to place.');
   assert.equal(plannedMessage(61.5,61.5),'All required hours are planned. Your target is covered.');
