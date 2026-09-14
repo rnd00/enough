@@ -14,9 +14,11 @@ export function monthDays(month) {
 }
 export function calculate(s, holidays) {
   const days = monthDays(s.month).filter(d => d >= s.start && s.weekdays.includes(date(d).getDay()) && !holidays[d] && !s.vacation.includes(d));
-  const remaining = Math.max(0, s.hours - (s.mode === 'total' ? s.completed : 0));
+  const vacationDays=monthDays(s.month).filter(d=>d>=s.start&&s.weekdays.includes(date(d).getDay())&&!holidays[d]&&s.vacation.includes(d));
+  const vacationCredit=vacationDays.length*(s.vacationHours||0);
+  const remaining = Math.max(0, s.hours - (s.mode === 'total' ? s.completed : 0)-vacationCredit);
   const planned = s.blocks.filter(b=>b.type==='work' && days.includes(b.date)).reduce((n,b)=>n+b.end-b.start,0);
-  return {days, remaining, daily:days.length ? remaining/days.length : 0, planned, unplanned:Math.max(0,remaining-planned)};
+  return {days, vacationDays, vacationCredit, remaining, daily:days.length ? remaining/days.length : 0, planned, unplanned:Math.max(0,remaining-planned)};
 }
 export function overlaps(block, others) {
   return others.some(b=>b.id!==block.id && b.date===block.date && b.start<block.end && block.start<b.end);

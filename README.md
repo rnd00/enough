@@ -20,10 +20,11 @@ Open [localhost:4173](http://localhost:4173).
 
 1. Enter **Hours left**, or select **Monthly total** and enter the hours already worked.
 2. Choose the month, first available date, working weekdays, and preferred daily limit.
-3. Select your holiday calendar and, where available, your state or region. Click dates to add paid vacation or custom holidays.
-4. Read your daily target. For example, **82 hours / 8 available workdays = 10.25 hours per day**.
+3. Set how many hours each paid vacation day counts toward your monthly requirement. Use `0` if your company only counts hours actually worked.
+4. Select your holiday calendar and, where available, your state or region. Click dates to add paid vacation or custom holidays.
+5. Read your daily target. For example, **82 hours / 8 available workdays = 10.25 hours per day**.
 
-Vacation removes a day from the calculation; it does not credit hours toward the target. Adjust your required hours for any vacation credit your employer provides. Changing the start date does not automatically update hours already worked.
+Paid vacation removes that date from available workdays. Its configured credit also reduces the hours left when the vacation falls on or after the calculation start date and would otherwise be a working day. Changing the start date does not automatically update hours already worked.
 
 ## Arrange your hours
 

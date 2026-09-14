@@ -16,7 +16,7 @@ $('theme-toggle').onclick=()=>{
 };
 renderTheme();
 const today=key(new Date()), tomorrow=date(today);tomorrow.setDate(tomorrow.getDate()+1);
-const defaults={month:today.slice(0,7),start:key(tomorrow),hours:82,completed:0,mode:'remaining',region:'JP',subdivision:'',weekStartsOn:1,weekdays:[1,2,3,4,5],vacation:[],custom:{},blocks:[],limit:8};
+const defaults={month:today.slice(0,7),start:key(tomorrow),hours:82,completed:0,vacationHours:0,mode:'remaining',region:'JP',subdivision:'',weekStartsOn:1,weekdays:[1,2,3,4,5],vacation:[],custom:{},blocks:[],limit:8};
 defaults.workStart=9;defaults.workEnd=18;
 let s=structuredClone(defaults), storageOK=true;
 try {const saved=JSON.parse(localStorage.getItem('enough-plan'));if(saved && saved.version===1)s={...s,...saved};}catch{storageOK=false;}
@@ -45,11 +45,11 @@ function bind(){
       s[id]=id==='workEnd'&&value===0?24:value;save();
     };
   }
-  for(const id of ['month','start','hours','completed','region','limit','weekStartsOn']){
+  for(const id of ['month','start','hours','completed','vacationHours','region','limit','weekStartsOn']){
     $(id).value=s[id];
     $(id).onchange=()=>{
       if(!$(id).checkValidity() || !$(id).value){$(id).reportValidity();$(id).value=s[id];return;}
-      s[id]=['hours','completed','limit','weekStartsOn'].includes(id)?Number($(id).value):$(id).value;
+      s[id]=['hours','completed','vacationHours','limit','weekStartsOn'].includes(id)?Number($(id).value):$(id).value;
       if(id==='month'){s.start=s.month===today.slice(0,7)?key(tomorrow):s.month+'-01';$('start').value=s.start;week=weekStart(s.start);}
       if(id==='start')week=weekStart(s.start);
       if(id==='weekStartsOn')week=weekStart(week);
@@ -84,7 +84,7 @@ function render(){
   html+='<div></div>'.repeat((date(days[0]).getDay()-s.weekStartsOn+7)%7);
   html+=days.map(d=>{
     const vacation=s.vacation.includes(d), past=d<s.start, working=c.days.includes(d);
-    const label=h[d] || (vacation?t('Paid vacation'):working?t(number(c.daily)+'h target'):past?'':t('Day off'));
+    const label=h[d] || (vacation?t(s.vacationHours?`Paid vacation · ${number(s.vacationHours)}h credit`:'Paid vacation'):working?t(number(c.daily)+'h target'):past?'':t('Day off'));
     return `<button class="day ${!working?'off':''} ${past?'past':''} ${h[d]?'holiday':vacation?'vacation':''} ${d===today?'today':''}" data-date="${d}" title="${escape(readable(d)+' — '+label)}" aria-label="${escape(readable(d)+' — '+label+'; '+t('Edit day'))}"><span class="date-number">${date(d).getDate()}</span><small>${escape(label)}</small></button>`;
   }).join('');
   $('month-calendar').innerHTML=html;$('month-calendar').querySelectorAll('[data-date]').forEach(b=>b.onclick=()=>openDay(b.dataset.date));

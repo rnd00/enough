@@ -65,6 +65,16 @@ test('September example, total mode, exclusions and no available days',()=>{
   const blocks=[{date:'2026-09-14',start:9,end:12,type:'work'},{date:'2026-09-14',start:12,end:13,type:'personal'},{date:'2026-09-24',start:9,end:17,type:'work'}];
   assert.equal(calculate({...state,blocks},fallback).planned,3);
 });
+test('paid vacation credit reduces required hours only on eligible future workdays',()=>{
+  const credited=calculate({...state,vacationHours:8},fallback);
+  assert.equal(credited.vacationCredit,16);
+  assert.equal(credited.remaining,66);
+  assert.equal(credited.daily,8.25);
+  assert.equal(calculate({...state,vacationHours:0},fallback).remaining,82);
+  assert.equal(calculate({...state,mode:'total',hours:160,completed:78,vacationHours:8},fallback).remaining,66);
+  assert.equal(calculate({...state,vacation:['2026-09-23'],vacationHours:8},fallback).vacationCredit,0);
+  assert.equal(calculate({...state,start:'2026-09-25',vacationHours:8},fallback).vacationCredit,8);
+});
 test('allocation preserves target, avoids breaks and detects collisions',()=>{
   const days=calculate(state,fallback).days;
   const breaks=days.map(date=>({id:date,date,start:12,end:13,type:'personal'}));
